@@ -49,6 +49,75 @@ Dovesti Kontrol platformu do stabilnog production nivoa za aktivne klijente i om
 
 ---
 
+## Team Operating Template (Planner -> Worker -> Reviewer)
+
+### 1) Rezervacija task-a (pre rada)
+
+Kada neko uzima stavku iz backloga, u kolonu `Napomena` ili opis stavke dodaje:
+
+- `Owner: ime`
+- `StartedAt: YYYY-MM-DD HH:mm`
+- `Branch: feature/... ili fix/...`
+- `PlannerSession: putanja do SESSION fajla`
+
+Primer formata:
+
+`Owner: Marko | StartedAt: 2026-04-21 10:30 | Branch: fix/sec-4-secrets | PlannerSession: Plans/SESSION_kontrol-sec4_2026-04-21.md`
+
+### 2) Planner izlaz (pre Worker-a)
+
+Svaki task paket koji ide Worker-u mora imati:
+
+- Jasan scope (tačni ID-jevi, npr. `SEC-4`, `SEC-5`)
+- Acceptance kriterijume (šta znači `✅ Done`)
+- Out-of-scope listu (šta se ne dira)
+- Verifikaciju (`dotnet build`, test, smoke koraci)
+
+### 3) Worker izlaz (pre Reviewer-a)
+
+Worker mora vratiti:
+
+- Lista promenjenih fajlova
+- Šta je završeno po svakom ID-ju
+- Šta nije završeno + razlog
+- Komande verifikacije i rezultat
+
+### 4) Reviewer gate (obavezno)
+
+Task ne ide u `✅ Done` bez reviewer potvrde.
+
+Reviewer proverava:
+
+- Scope usklađen sa Planner planom
+- Rizike/regresije
+- Build/test/smoke dokaze
+- Da su status i napomene u backlogu ažurirani
+
+### 5) Backlog update posle review-a
+
+Posle reviewer potvrde, u stavku se dopisuje:
+
+- `Reviewer: ime`
+- `PR: link ili #broj`
+- `Evidence: build/test/smoke`
+- `ClosedAt: YYYY-MM-DD HH:mm`
+
+Primer formata:
+
+`Reviewer: Sasa | PR: #128 | Evidence: build+smoke OK | ClosedAt: 2026-04-21 14:05`
+
+---
+
+## Paralelni Rad (anti-conflict)
+
+1. Jedan aktivan owner po task ID-ju.
+2. Ako je task `🔄 In progress`, drugi član ga ne preuzima bez predaje owner-a.
+3. Velike stavke se dele na pod-taskove sa novim ID sufiksom (`SEC-4a`, `SEC-4b`) kad treba paralelizacija.
+4. Svaki branch mora mapirati konkretne backlog ID-jeve.
+5. Merge ide tek nakon reviewer potvrde i backlog update-a.
+
+---
+
 ## Operativni workflow (Live)
 
 1. Saša + Planner prolaze stranicu po stranicu.
