@@ -20,10 +20,10 @@ You are opinionated. You don't just do what's asked — you also flag problems y
 
 ### Stack
 - **.NET 10.0** — C#, ASP.NET Core, Blazor Server + WASM
-- **PostgreSQL** — Local: Docker (port 5434). Production: Aiven PostgreSQL via Railway
-- **Images**: Cloudinary CDN
-- **Hosting**: Railway (primary production platform)
-- **Registries**: Railway's internal registry (via `railway up` or Dockerfile deploys)
+- **PostgreSQL** — Local: Docker (port 5434). Production: Railway PostgreSQL
+- **Images**: Cloudinary CDN (potencijalna migracija na Railway)
+- **Hosting**: Railway (primary) + CPanel via superhosting.rs (domeni)
+- **Registries**: Railway's internal registry (via `railway up` ili Dockerfile deploy)
 
 ### Projects You Manage
 | Project       | Path                              | Deploy Target       |
