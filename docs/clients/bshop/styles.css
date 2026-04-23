@@ -1,0 +1,5 @@
+h1, h2 { color: #0078d4; border-bottom: 1px solid #eee; }
+table { width: 100%; border: 1px solid #ddd; border-collapse: collapse; margin-bottom: 20px; }
+th, td { padding: 10px; border: 1px solid #eee; text-align: left; }
+th { background-color: #f8f9fa; }
+blockquote { font-style: italic; color: #666; border-left: 4px solid #0078d4; padding-left: 10px; }
