@@ -8,7 +8,7 @@
 
 | Klijent | Sajt/App | Status | Napomena |
 |---------|----------|--------|----------|
-| **Libra88** | Libra88 auto delovi webshop | 🔥 Aktivan, u razvoju | TrendSoft integracija |
+| **Libra88** | Libra88 auto delovi webshop | 🔥 Aktivan, u razvoju | |
 | **B-Shop** | B-Shop | 🔥 Aktivan | |
 | **Tea Ristić** | tearistic.rs | ✅ Live | |
 
@@ -31,7 +31,6 @@
 
 ## Potencijalni klijenti
 
-- TrendSoft korisnici — 20+ firmi koje koriste TrendSoft POS (auto delovi, građevina, boje, alati)
 - Toma Skulić mreža (Zadar, Croatia)
 
 ---

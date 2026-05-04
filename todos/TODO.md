@@ -23,7 +23,6 @@
 - [ ] API-1 Global Exception Handling Middleware (ProblemDetails)
 - [ ] API-2 ApiControllerBase sa helper metodama za OperationResult<T>
 - [ ] Order management modul (checkout flow)
-- [ ] TrendSoft integracija za Libra88 (u toku)
 
 ### Sajtovi
 - [ ] SasaKitic.rs — okačiti sajt

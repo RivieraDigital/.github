@@ -293,7 +293,7 @@ Mitigacija: Precizan rollback trigger i owner matrica za incident response.
 | OrderItem | Catalog/Orders | Split | Snažna zavisnost od Product i Order; snapshot vs FK odluka | H | P0 |
 | BusinessPartner | Catalog | Keep | Stabilan B2B entitet, nizak tehnički rizik | L | P1 |
 | IntegrationSetting | Integrations | Merge | Ujednačiti provider model i smanjiti dupliranje konfiguracije | M | P2 |
-| TrendSoftIntegrationSettings | Integrations | Merge | Konsolidacija sa IntegrationSetting radi jedinstvenog modela | M | P2 |
+| LegacyIntegrationSettings | Integrations | Merge | Konsolidacija sa IntegrationSetting radi jedinstvenog modela | M | P2 |
 | StoreSettings | Settings | Redesign | Singleton obrazac bez tvrdih guard-ova i secret boundary rizik | M | P1 |
 | BlogPost | Blog | Redesign | Author veza bez stroge FK validacije | M | P1 |
 | BlogComment | Blog | Keep | Stabilan model sa predvidivim relacijama | L | P2 |
@@ -315,7 +315,7 @@ Mitigacija: Precizan rollback trigger i owner matrica za incident response.
 | Manufacturer | Manufacturer DTO | ManufacturerService | Manufacturers endpoints | 2 |
 | BlogComment | BlogComment DTO | Blog tok | Blog comment tok | 2 |
 | IntegrationSetting | IntegrationSetting DTO | IntegrationSettingsService | IntegrationSettings endpoints | 2 |
-| TrendSoftIntegrationSettings | IntegrationSetting DTO sloj | IntegrationSettingsService | TrendSoft sync tok | 2 |
+| LegacyIntegrationSettings | IntegrationSetting DTO sloj | IntegrationSettingsService | legacy sync tok | 2 |
 | User / Role / UserRole / RefreshToken | Identity DTO/Auth response | Identity/Auth servisi | Auth/Users endpoints | 1-2 |
 
 ### 4.7 Operativni zaključak pretresa
@@ -453,7 +453,7 @@ Namena:
 
 Trenutno stanje:
 1. StoreSettings nosi i business i tehničke podatke, uključujući tajne vrednosti.
-2. Integrations ima dualnost modela (specifičan TrendSoft model + generički model).
+2. Integrations ima dualnost modela (specifičan legacy model + generički model).
 3. Provider tok nije potpuno standardizovan i teško je skalirati na više provajdera.
 
 Gap:
@@ -611,7 +611,7 @@ Legenda:
 | Tabela | Akcija | Buduca namena | Status odluke |
 |---|---|---|---|
 | StoreSettings | Redesign | Business settings bez plain secrets | ✅ |
-| TrendSoftIntegrationSettings | Merge | Konsolidacija u generički provider model | ✅ |
+| LegacyIntegrationSettings | Merge | Konsolidacija u generički provider model | ✅ |
 | IntegrationSetting | Redesign/Merge Target | Primarni provider model | ✅ |
 
 ### 9.6 Blog
@@ -623,7 +623,7 @@ Legenda:
 ### 9.7 Candidate za uklanjanje (tek posle stabilizacije)
 | Stavka | Tip | Uslov za uklanjanje |
 |---|---|---|
-| Legacy TrendSoft specifična polja/tabela | Merge ostatak | Tek kada generic provider radi produkciono stabilno |
+| Legacy integration specifična polja/tabela | Merge ostatak | Tek kada generic provider radi produkciono stabilno |
 | Duplirane snapshot/reference kolone u Order tokovima | Refactor cleanup | Tek nakon potvrde audit potreba i regresionih testova |
 
 ## 10) Kolona-By-Kolona Pretres (operativni sažetak)
@@ -635,7 +635,7 @@ Legenda:
 
 ### 10.2 Kandidati za hard delete odmah (faza 1)
 1. StoreSettings.CloudinaryApiSecret: izbaciti iz baze nakon migracije na secret store.
-2. TrendSoftIntegrationSettings.ApiKey: izbaciti iz baze nakon migracije na secret store.
+2. Legacy integration API key: izbaciti iz baze nakon migracije na secret store.
 
 Napomena:
 1. Obe stavke se brišu tek kada aplikacija potvrđeno čita tajne iz secret store-a u svim tokovima.
@@ -645,7 +645,7 @@ Napomena:
 2. Legacy JSON kolone (Category.AttributeTemplate, Product.AdditionalAttributes): odluka posle validacije da li ostaju JSON ili idu u normalizovane tabele.
 
 ### 10.4 Merge/Rename kandidati
-1. TrendSoftIntegrationSettings -> IntegrationSetting (postepena konsolidacija).
+1. LegacyIntegrationSettings -> IntegrationSetting (postepena konsolidacija).
 2. Standardizacija sync i audit obrazaca kroz zajedničke modele/metapodatke.
 
 ### 10.5 REVIEW stavke pre finalne odluke
@@ -662,7 +662,7 @@ Napomena:
 
 ### Sprint WB1 - Security i trenutni cleanup
 - [ ] **WB1.1** Izvući `StoreSettings.CloudinaryApiSecret` u secret store i ukloniti polje iz modela/migracija.
-- [ ] **WB1.2** Izvući `TrendSoftIntegrationSettings.ApiKey` u secret store i ukloniti polje iz modela/migracija.
+- [ ] **WB1.2** Izvući legacy integration API key u secret store i ukloniti polje iz modela/migracija.
 - [ ] **WB1.3** Dodati verifikacioni test da nijedan secret ne izlazi kroz DTO/API.
 
 ### Sprint WB2 - JSON normalizacija (odmah)
@@ -683,7 +683,7 @@ Napomena:
 - [ ] **WB4.3** Proći sve Product query/projekcije da koriste novu normalizovanu strukturu atributa.
 
 ### Sprint WB5 - Integrations konsolidacija
-- [ ] **WB5.1** Konsolidovati TrendSoft specifičnu konfiguraciju u generički IntegrationSetting model.
+- [ ] **WB5.1** Konsolidovati legacy specifičnu konfiguraciju u generički IntegrationSetting model.
 - [ ] **WB5.2** Uvesti tipizovanu validaciju konfiguracije po provider-u.
 - [ ] **WB5.3** Očistiti legacy putanje nakon produkcione stabilizacije.
 

@@ -22,7 +22,7 @@
 | **Orders** | 🔥 U razvoju | Checkout, narudžbine |
 | **Blog** | ⚙️ Osnova | |
 | **WebUsers** | ✅ Aktivan | |
-| **Integrations** | 🔥 U razvoju | TrendSoft POS integracija |
+| **Integrations** | 🔥 U razvoju | Eksterne integracije |
 | **Reporting** | 📋 Planirano | |
 | **Settings** | ⚙️ Osnova | |
 
@@ -36,7 +36,6 @@
 | Admin panel (Blazor) | ✅ Verifikacija pending (RUN-2) |
 | Catalog CRUD | ✅ |
 | Order management | 🔥 U razvoju |
-| TrendSoft POS integracija | 🔥 U razvoju (Libra88) |
 | WebShop frontend (Blazor WASM) | ✅ Osnova |
 | Image upload (Cloudinary) | ✅ |
 | Multi-tenant podrška | 📋 Planirano |

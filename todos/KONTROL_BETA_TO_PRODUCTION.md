@@ -140,7 +140,7 @@ Primer formata:
 | SEC-3 | Rate limiting na Login/Register | 🟡 BUG | P0 | ⬜ | AspNetCore rate limiting |
 | SEC-4 | Hardkodovan DB password u API appsettings | 🔴 BLOCKER | P0 | ⬜ | Secrets izvući u env/secret store |
 | SEC-5 | Hardkodovan JWT SecretKey u API appsettings | 🔴 BLOCKER | P0 | ⬜ | Rotirati ključ + env only |
-| SEC-6 | Hardkodovan TrendSoft ApiKey u API appsettings | 🔴 BLOCKER | P0 | ⬜ | Rotirati ključ + env only |
+| SEC-6 | Uklonjen stari integration API key iz API appsettings | ✅ DONE | P0 | ✅ | Legacy integration sekcija obrisana |
 | SEC-7 | Komitovani Railway connection stringovi u Development configu | 🔴 BLOCKER | P0 | ⬜ | Sanitizovati fajl + uskladiti .gitignore politiku |
 | SEC-8 | Health endpointi otkrivaju environment i DB status bez autorizacije | 🟡 BUG | P1 | ⬜ | Zaštititi `/database` i `/detailed` |
 | SEC-9 | General image upload endpoint nema autorizaciju + folder input nije whitelist-ovan | 🟡 BUG | P1 | ⬜ | Dodati `[Authorize]` i validaciju foldera |
@@ -201,7 +201,6 @@ Primer formata:
 | F-070 | Users /users | | | P1 | ⬜ |
 | F-071 | Settings /settings | | | P1 | ⬜ |
 | F-072 | Integrations /integrations | | | P1 | ⬜ |
-| F-073 | TrendSoft /integrations/trendsoft | | | P1 | ⬜ |
 | F-074 | Admin Tools | | | P1 | ⬜ |
 
 ### Reports
@@ -312,7 +311,7 @@ Primer formata:
 
 ## Scan 2026-04-21 — dodatna zapažanja (evidence-based)
 
-- Potvrđeno curenje tajni kroz repo config (`Database.Password`, `Jwt.SecretKey`, `TrendSoft.ApiKey`, Railway connection stringovi).
+- Potvrđeno curenje tajni kroz repo config (`Database.Password`, `Jwt.SecretKey`, Railway connection stringovi).
 - Potvrđeno da nema registracije rate limiting middleware-a u API startup-u.
 - Potvrđeno da global exception handling i security headers middleware još nisu uvedeni u pipeline.
 - Potvrđeno da API koristi custom health kontroler, bez standardnog `MapHealthChecks("/health")` endpointa.

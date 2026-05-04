@@ -106,8 +106,6 @@ _Popunjava se tokom sesije..._
 
 ### Faza 14: System — Integrations (`/integrations`)
 - [ ] **T-14.1** Lista integracija
-- [ ] **T-14.2** TrendSoft integracija (`/integrations/trendsoft`)
-- [ ] **T-14.3** TrendSoft sync operacija
 
 ### Faza 15: Admin Tools
 - [ ] **T-15.1** Backup funkcija
